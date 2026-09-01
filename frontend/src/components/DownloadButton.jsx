@@ -33,11 +33,20 @@ export default function DownloadButton({ documentData, owner }) {
   }
 
   return (
-    <>
-      <button disabled={isDownloading} onClick={handleDownload} type="button">
+    <div className="space-y-2 sm:text-right">
+      <button
+        className="inline-flex w-full items-center justify-center rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 disabled:cursor-not-allowed disabled:bg-zinc-100 disabled:text-zinc-400 sm:w-auto"
+        disabled={isDownloading}
+        onClick={handleDownload}
+        type="button"
+      >
         {isDownloading ? 'Baixando...' : 'Baixar'}
       </button>
-      {error && <p role="alert">{error}</p>}
-    </>
+      {error && (
+        <p className="text-left text-sm text-red-700" role="alert">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }
