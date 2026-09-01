@@ -1,20 +1,24 @@
-// Seed do componente raiz do Document Management System.
-//
-// Este é apenas um ponto de partida mínimo. Durante o Passo 3 você vai usar o
-// Agent Mode do GitHub Copilot para construir os componentes:
-//   - components/UploadComponent
-//   - components/DocumentList
-//   - components/DownloadButton
-// e o serviço services/ que consome a API do backend via fetch.
+import { useState } from 'react';
+import DocumentList from './components/DocumentList';
+import UploadComponent from './components/UploadComponent';
 
 export default function App() {
+  const [owner, setOwner] = useState('');
+  const [refreshKey, setRefreshKey] = useState(0);
+
   return (
-    <main style={{ fontFamily: 'system-ui, sans-serif', padding: '2rem' }}>
+    <main>
       <h1>Document Management System</h1>
-      <p>
-        Seed do frontend. Construa a interface durante o Passo 3 usando o Agent
-        Mode do GitHub Copilot.
-      </p>
+      <label htmlFor="owner">Identificador de usuário</label>
+      <input
+        id="owner"
+        onChange={(event) => setOwner(event.target.value)}
+        placeholder="Ex.: ana.eliz"
+        type="text"
+        value={owner}
+      />
+      <UploadComponent owner={owner} onUpload={() => setRefreshKey((value) => value + 1)} />
+      <DocumentList owner={owner} refreshKey={refreshKey} />
     </main>
   );
 }
